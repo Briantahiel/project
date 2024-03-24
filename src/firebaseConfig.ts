@@ -30,6 +30,5 @@ const auth = getAuth(app);
 const firestore = getFirestore(app); // Agrega esta línea
 const db = getFirestore(app);
 
-
 // Exporta el objeto Auth para que pueda ser utilizado en otros lugares de tu aplicación
 export { auth , firestore, db};
