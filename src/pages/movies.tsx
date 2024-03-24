@@ -10,8 +10,8 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { db } from "../config/firebaseCredentials";
-import { auth } from "../config/firebaseCredentials";
+import { db } from "./config/firebaseCredentials";
+import { auth } from "./config/firebaseCredentials";
 import "../styles/movies.css";
 
 const API_KEY = "d0a97fc052097018bb41a342cb55b9b8";
