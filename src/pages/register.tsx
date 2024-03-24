@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { auth } from '../firebaseCredentials';
+import { auth } from '../config/firebaseCredentials';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
 
