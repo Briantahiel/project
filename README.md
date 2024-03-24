@@ -1,5 +1,16 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
+<h3>Descripción del Proyecto</h3>
+<p>Requisitos:</p>
+
+<p>Crear una aplicación web que presente información sobre un tema a elección, por ejemplo: una comunidad de recetas de comida. (puede ser sobre cualquier topico que elija el estudiante)
+Una página inicial (Root) que hable sobre la plataforma web
+Una barra o panel de navegación que esté presente en todas las rutas de la aplicación y que redirija como mínimo a 3 rutas diferentes (Root incluida)
+Tratar de traer imagenes y recursos desde el internet (hardcodearlo en el codigo y assets locales como ultima opción)
+Que respete un diseño y una paleta de colores en toda la aplicación, la forma de aplicar los estilos queda a elección (archivo CSS, objeto en JSX, librería, etc.)
+No utilizar elementos <a> de HTML para el routing puesto que no proporcionan una experiencia de SPA al usuario
+Ofrecer features y elementos reactivos, por ejemplo: formularios, renderizado de imagenes a decision del usuario, calculadoras, etc.</p>
 ## Getting Started
 
 First, run the development server:
