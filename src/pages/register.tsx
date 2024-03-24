@@ -11,7 +11,7 @@
 // }
 "use client"
 import { useState } from 'react';
-import { auth } from '../firebaseConfig';
+import { auth } from '../firebaseCredentials';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
 
