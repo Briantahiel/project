@@ -1,27 +1,19 @@
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Link from "next/link";
-// import "./globals.css";
-import 'bootstrap/dist/css/bootstrap.css';
+// _document.js
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+// import { metadata } from "./metadata";
+import Link from 'next/link';
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: {
-    // absolute ahora está definido en la misma página que se utiliza, por lo que no es necesario pasarlo aquí.
-    // absolute: "",
-    default: "MovieChat",
-    template: "%s | NextJs Project",
-  },
-  description: "Movie Chat Project",
-};
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <meta charSet="utf-8" />
+          {/* <title>{metadata.title.default}</title> */}
+          {/* <meta name="description" content={metadata.description} /> */}
+        </Head>
+        <body>
         <header>
-          {/* <p>Header</p> */}
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
               <a className="navbar-brand" href="#">
@@ -54,11 +46,15 @@ export default function RootLayout({ children }) {
             </div>
           </nav>
         </header>
-        {children}
-        <footer>
-          <p>Footer</p>
-        </footer>
-      </body>
-    </html>
-  );
+          <Main />
+          <footer>
+            <p>Footer</p>
+          </footer>
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
+
+export default MyDocument;
