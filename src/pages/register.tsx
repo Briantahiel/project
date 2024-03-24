@@ -1,17 +1,6 @@
-// import Link from "next/link";
-
-// export default function Register() {
-//     return (
-//         <>
-//             <h3>Register</h3>
-//             <Link href="/login">Login</Link>
-
-//         </>
-//     )
-// }
 "use client"
 import { useState } from 'react';
-import { auth } from '../firebaseConfig';
+import { auth } from '../firebaseCredentials';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
 
