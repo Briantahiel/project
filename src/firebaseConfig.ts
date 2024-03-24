@@ -27,8 +27,7 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
-const firestore = getFirestore(app); // Agrega esta línea
+const firestore = getFirestore(app); 
 const db = getFirestore(app);
 
-// Exporta el objeto Auth para que pueda ser utilizado en otros lugares de tu aplicación
 export { auth , firestore, db};
