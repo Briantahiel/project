@@ -12,7 +12,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { auth } from "../firebaseConfig";
-import '../styles/movies.css';
 
 
 const API_KEY = "d0a97fc052097018bb41a342cb55b9b8";
