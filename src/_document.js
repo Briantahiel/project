@@ -1,10 +1,12 @@
-// _document.js
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-// import { metadata } from "./metadata";
+import { Metadata } from "next";
+import { Inter } from "next/font/google";
 import Link from 'next/link';
 
-class MyDocument extends Document {
-  render() {
+const inter = Inter({ subsets: ["latin"] });
+
+
+export default function RootLayout() {
     return (
       <Html lang="en">
         <Head>
@@ -55,6 +57,4 @@ class MyDocument extends Document {
       </Html>
     );
   }
-}
 
-export default MyDocument;
