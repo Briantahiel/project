@@ -23,6 +23,7 @@ export default function PopularMovies() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
   const [user, setUser] = useState<any>([]);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -166,9 +167,14 @@ export default function PopularMovies() {
     });
   });
 
+  const openList = () => {
+    setOpenMenu(!openMenu)
+  }
+
   return (
     <>
-      <div className="movies-genre-container">
+      <button className="button-genre" onClick={openList}>Genre</button>
+      <div className={openMenu ? "movies-genre-container" : "menu-close"}>
         {genres.map((movieGenre) => (
           <div key={movieGenre.id}>
             <label>
