@@ -22,9 +22,10 @@ export default function PopularMovies() {
   const [comments, setComments] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>([]);
 
   const router = useRouter();
+
   useEffect(() => {
     const fetchData = async (page: number) => {
       try {
@@ -119,7 +120,7 @@ export default function PopularMovies() {
 
   const handleCommentSubmit = async (movieId: string) => {
     try {
-      if (!user) {
+      if (user == null) {
         router.push("/login");
         return;
       }
@@ -210,7 +211,9 @@ export default function PopularMovies() {
                   />
                   <button
                     onClick={() => handleCommentSubmit(movie.id)}
-                    disabled={!user}
+                    // disabled={!user}
+                    className={user ? 'logged-in' : 'logged-out'}
+                    
                   >
                     Publicar
                   </button>
