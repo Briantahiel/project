@@ -13,18 +13,18 @@ import {
 import { db } from "../firebaseConfig";
 import { auth } from "../firebaseConfig";
 
-
 const API_KEY = "d0a97fc052097018bb41a342cb55b9b8";
 
 export default function PopularMovies() {
   const [movies, setMovies] = useState<any[]>([]);
+  const [genres, setGenres] = useState<any[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [comments, setComments] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [comment, setComment] = useState<string>("");
   const [user, setUser] = useState<any>(null);
 
   const router = useRouter();
-
   useEffect(() => {
     const fetchData = async (page: number) => {
       try {
@@ -45,6 +45,26 @@ export default function PopularMovies() {
 
     fetchData(currentPage);
   }, [currentPage]);
+
+  useEffect(() => {
+    const fetchMovieGenres = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.themoviedb.org/3/genre/movie/list",
+          {
+            params: {
+              api_key: API_KEY,
+            },
+          }
+        );
+        setGenres(response.data.genres);
+      } catch (error) {
+        console.error("Error fetching movie genres:", error);
+      }
+    };
+
+    fetchMovieGenres();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -131,83 +151,116 @@ export default function PopularMovies() {
     }
   };
 
+  const handleGenreSelect = (genreId: string) => {
+    if (selectedGenres.includes(genreId)) {
+      setSelectedGenres(selectedGenres.filter((id) => id !== genreId));
+    } else {
+      setSelectedGenres([...selectedGenres, genreId]);
+    }
+  };
+
+  const filteredMovies = movies.filter((movie) => {
+    return selectedGenres.every((genreId) => {
+      return movie.genre_ids.includes(parseInt(genreId));
+    });
+  });
+
   return (
-    <div className="movies-main-container">
-      <h1>Últimos estrenos</h1>
-      <div className="movies-container">
-        {movies.map((movie) => (
-          <div key={movie.id} className="movie-card">
-            <div className="movie-details">
-              <h2>{movie.title}</h2>
-              <p>{movie.overview}</p>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                alt={movie.title}
-              />
-            </div>
-            <div className="comment-section">
+    <>
+      <div className="movies-genre-container">
+        {genres.map((movieGenre) => (
+          <div key={movieGenre.id}>
+            <label>
               <input
-                type="text"
-                value={comment}
-                onChange={(e) => {
-                  if (e.target.value.length <= 100) {
-                    setComment(e.target.value);
-                  }
-                }}
-                placeholder="Escribe un comentario"
+                type="checkbox"
+                value={movieGenre.id}
+                checked={selectedGenres.includes(movieGenre.id)}
+                onChange={() => handleGenreSelect(movieGenre.id)}
               />
-              <button
-                onClick={() => handleCommentSubmit(movie.id)}
-                disabled={!user}
-              >
-                Publicar
-              </button>
-              {comments.some((comment) => comment.movieId === movie.id) ? (
-                <div className="comment-padding">
-                  <h6>Comentarios</h6>
-                  <ul>
-                    {comments
-                      .filter((comment) => comment.movieId === movie.id)
-                      .map((comment) => (
-                        <div className="comment-container">
-                          <p>{comment.userEmail} dice:</p>
-                          <li key={comment.id}>
-                            {comment.comment.length > 100
-                              ? `${comment.comment.substring(0, 100)}...`
-                              : comment.comment}
-                            {user && comment.userId === user.uid && (
-                              <div className="movies-btn-container">
-                                <button
-                                  onClick={() =>
-                                    handleDeleteComment(comment.id)
-                                  }
-                                >
-                                  Eliminar
-                                </button>
-                              </div>
-                            )}
-                          </li>
-                        </div>
-                      ))}
-                  </ul>
-                </div>
-              ) : (
-                <div className="comment-padding">
-                  <h6>Sin comentarios</h6>
-                </div>
-              )}
-            </div>
+              {movieGenre.name}
+            </label>
           </div>
         ))}
       </div>
-      <div className="movies-btn-pages">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Anterior
-        </button>
-        <button onClick={handleNextPage}>
-          Siguiente
-        </button>
+
+      <div className="movies-main-container">
+        <div>
+          <h1>Últimos estrenos</h1>
+          <div className="movies-container">
+            {filteredMovies.map((movie) => (
+              <div key={movie.id} className="movie-card">
+                <div className="movie-details">
+                  <h2>{movie.title}</h2>
+                  <p>{movie.overview}</p>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                </div>
+                <div className="comment-section">
+                  <input
+                    type="text"
+                    value={comment}
+                    onChange={(e) => {
+                      if (e.target.value.length <= 100) {
+                        setComment(e.target.value);
+                      }
+                    }}
+                    placeholder="Escribe un comentario"
+                  />
+                  <button
+                    onClick={() => handleCommentSubmit(movie.id)}
+                    disabled={!user}
+                  >
+                    Publicar
+                  </button>
+
+                  {comments.some((comment) => comment.movieId === movie.id) ? (
+                    <div className="comment-padding">
+                      <h6>Comentarios</h6>
+                      <ul>
+                        {comments
+                          .filter((comment) => comment.movieId === movie.id)
+                          .map((comment) => (
+                            <div className="comment-container">
+                              <p>{comment.userEmail} dice:</p>
+                              <li key={comment.id}>
+                                {comment.comment.length > 100
+                                  ? `${comment.comment.substring(0, 100)}...`
+                                  : comment.comment}
+                                {user && comment.userId === user.uid && (
+                                  <div className="movies-btn-container">
+                                    <button
+                                      onClick={() =>
+                                        handleDeleteComment(comment.id)
+                                      }
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </div>
+                                )}
+                              </li>
+                            </div>
+                          ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className="comment-padding">
+                      <h6>Sin comentarios</h6>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="movies-btn-pages">
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              Anterior
+            </button>
+            <button onClick={handleNextPage}>Siguiente</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
