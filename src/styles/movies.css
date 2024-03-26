@@ -135,3 +135,12 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+
+/*////////////////*/
+
+@media screen and (max-width: 940px) {
+  .movies-main-container {
+    position: relative;
+  }
+}
