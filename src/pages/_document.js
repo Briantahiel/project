@@ -7,6 +7,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          <title>MovieChat</title>
         </Head>
         <body>
           <header>

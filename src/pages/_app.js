@@ -2,6 +2,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
 import "../styles/movies.css";
+import "../styles/login.css";
+import "../styles/module.css";
 import { useEffect } from 'react';
 
 
