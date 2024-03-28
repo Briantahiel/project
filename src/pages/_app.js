@@ -5,6 +5,7 @@ import "../styles/movies.css";
 import "../styles/login.css";
 import "../styles/module.css";
 import { useEffect } from 'react';
+import Navigation from "../components/Navigation"
 
 
 function MyApp({ Component, pageProps }) {
@@ -14,7 +15,12 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Navigation />
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default MyApp;

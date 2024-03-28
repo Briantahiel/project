@@ -1,15 +1,15 @@
-
 "use client";
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '../firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
+
 import Link from 'next/link';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,6 +22,7 @@ export default function Login() {
       console.error('Error al iniciar sesión:', error.message);
     }
   };
+
 
   return (
     <div className="container">
