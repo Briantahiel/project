@@ -27,9 +27,9 @@ export default function Register() {
   return (
     <>
       <div className="container">
-        <h2 className="title">Registro de Usuario</h2>
+        <h2 className="title">Register</h2>
         <label className="form-label">
-          Correo Electrónico:
+          Email:
           <input
             className="form-input"
             type="email"
@@ -38,7 +38,7 @@ export default function Register() {
           />
         </label>
         <label className="form-label">
-          Contraseña:
+          Password:
           <input
             className="form-input"
             type="password"
@@ -47,10 +47,10 @@ export default function Register() {
           />
         </label>
         <button className="submit-btn" onClick={handleRegister}>
-          Registrarse
+          Register
         </button>
         <Link href="/login" className="register-link">
-          Login
+          Log in
         </Link>
       </div>
     </>

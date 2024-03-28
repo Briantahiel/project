@@ -24,6 +24,9 @@ export default function PopularMovies() {
   const [comment, setComment] = useState<string>("");
   const [user, setUser] = useState<any>([]);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [dataMovies, setDataMovies] = useState<any[]>([]); 
+  const [movie, setMovie] = useState<string>('');
+  const [fileteredMovies, setFilteredMovies] = useState<any[]>([]);
 
   const router = useRouter();
 
@@ -64,9 +67,10 @@ export default function PopularMovies() {
         console.error("Error fetching movie genres:", error);
       }
     };
-
     fetchMovieGenres();
   }, []);
+
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -171,28 +175,79 @@ export default function PopularMovies() {
     setOpenMenu(!openMenu)
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/movie`,
+        {
+          params: {
+            api_key: API_KEY,
+            query: movie
+          },
+        }
+      );
+      setMovies(response.data.results);
+    } catch (error) {
+      console.error("Error al obtener las películas por palabra clave:", error);
+    }
+  };
+  
+  useEffect(() => {
+    const updatedFilteredMovies = movies.filter((movie) => {
+      return selectedGenres.every((genreId) => {
+        return movie.genre_ids.includes(parseInt(genreId));
+      });
+    });
+    setDataMovies([]); 
+    setFilteredMovies(updatedFilteredMovies);
+  }, [movies, selectedGenres]);
+  
+  
+
   return (
     <>
-      <button className="button-genre" onClick={openList}>Genre</button>
-      <div className={openMenu ? "movies-genre-container" : "menu-close"}>
-        {genres.map((movieGenre) => (
-          <div key={movieGenre.id}>
-            <label>
-              <input
-                type="checkbox"
-                value={movieGenre.id}
-                checked={selectedGenres.includes(movieGenre.id)}
-                onChange={() => handleGenreSelect(movieGenre.id)}
-              />
-              {movieGenre.name}
-            </label>
-          </div>
-        ))}
-      </div>
+<button className="btn-filter" onClick={openList}>Filters</button>
 
+<div className={openMenu ? "filter-container open" : "filter-container"}>
+  <form onSubmit={handleSubmit}>
+    <input
+      type="text"
+      value={movie}
+      onChange={(e) => setMovie(e.target.value)}
+      placeholder="Search for a movie..."
+    />
+    <button type="submit">Search</button>
+  </form>
+  <div>
+    <ul>
+      {dataMovies.map((movie) => (
+        <li key={movie}>{movie.original_title}</li>
+      ))}
+    </ul>
+  </div>
+  <div>
+    <button className="button-genre">Filter by Genre</button>
+    <div>
+      {genres.map((movieGenre) => (
+        <div key={movieGenre.id} className="checkbox-container">
+          <input
+            type="checkbox"
+            value={movieGenre.id}
+            checked={selectedGenres.includes(movieGenre.id)}
+            onChange={() => handleGenreSelect(movieGenre.id)}
+          />
+          <label>{movieGenre.name}</label>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+   
       <div className="movies-main-container">
         <div>
-          <h1>Últimos estrenos</h1>
+          <h1>Latest Releases</h1>
           <div className="movies-container">
             {filteredMovies.map((movie) => (
               <div key={movie.id} className="movie-card">
@@ -226,7 +281,7 @@ export default function PopularMovies() {
 
                   {comments.some((comment) => comment.movieId === movie.id) ? (
                     <div className="comment-padding">
-                      <h6>Comentarios</h6>
+                      <h6>Comments</h6>
                       <ul>
                         {comments
                           .filter((comment) => comment.movieId === movie.id)
@@ -244,7 +299,7 @@ export default function PopularMovies() {
                                         handleDeleteComment(comment.id)
                                       }
                                     >
-                                      Eliminar
+                                      Delete
                                     </button>
                                   </div>
                                 )}
@@ -255,7 +310,7 @@ export default function PopularMovies() {
                     </div>
                   ) : (
                     <div className="comment-padding">
-                      <h6>Sin comentarios</h6>
+                      <h6>No comments</h6>
                     </div>
                   )}
                 </div>

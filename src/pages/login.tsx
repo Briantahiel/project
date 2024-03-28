@@ -26,10 +26,10 @@ export default function Login() {
 
   return (
     <div className="container">
-  <h2 className="title">Iniciar Sesión</h2>
+  <h2 className="title">Log in</h2>
   <form onSubmit={handleLogin}>
     <label className="form-label">
-      Correo Electrónico:
+      Email:
       <input
         className="form-input"
         type="email"
@@ -38,7 +38,7 @@ export default function Login() {
       />
     </label>
     <label className="form-label">
-      Contraseña:
+      Password:
       <input
         className="form-input"
         type="password"
@@ -46,9 +46,9 @@ export default function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
     </label>
-    <button className="submit-btn" type="submit">Iniciar Sesión</button>
+    <button className="submit-btn" type="submit">Log in</button>
   </form>
-  <Link href='/register' className="register-link">Registrarse</Link>
+  <Link href='/register' className="register-link">Register</Link>
 </div>
 
   );
