@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { auth } from "../firebaseConfig";
+import { Carousel } from "react-bootstrap";
 
 const API_KEY = "d0a97fc052097018bb41a342cb55b9b8";
 
@@ -24,12 +25,35 @@ export default function PopularMovies() {
   const [comment, setComment] = useState<string>("");
   const [user, setUser] = useState<any>([]);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [dataMovies, setDataMovies] = useState<any[]>([]); 
-  const [movie, setMovie] = useState<string>('');
+  const [dataMovies, setDataMovies] = useState<any[]>([]);
+  const [movie, setMovie] = useState<string>("");
   const [fileteredMovies, setFilteredMovies] = useState<any[]>([]);
+  const [movieImages, setMovieImages] = useState<any[]>([]);
 
   const router = useRouter();
+  const movieId = 100;
 
+  useEffect(() => {
+    const fetchMovieImages = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId}/images`,
+          {
+            params: {
+              api_key: API_KEY,
+            },
+          }
+        );
+        setMovieImages(response.data.posters);
+      } catch (error) {
+        console.error("Error fetching movie images:", error);
+      }
+    };
+
+    fetchMovieImages();
+  }, [movieId]);
+
+  console.log("Movie Images", movieImages);
   useEffect(() => {
     const fetchData = async (page: number) => {
       try {
@@ -69,8 +93,6 @@ export default function PopularMovies() {
     };
     fetchMovieGenres();
   }, []);
-
-
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -172,8 +194,8 @@ export default function PopularMovies() {
   });
 
   const openList = () => {
-    setOpenMenu(!openMenu)
-  }
+    setOpenMenu(!openMenu);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -183,7 +205,7 @@ export default function PopularMovies() {
         {
           params: {
             api_key: API_KEY,
-            query: movie
+            query: movie,
           },
         }
       );
@@ -192,59 +214,78 @@ export default function PopularMovies() {
       console.error("Error al obtener las películas por palabra clave:", error);
     }
   };
-  
+
   useEffect(() => {
     const updatedFilteredMovies = movies.filter((movie) => {
       return selectedGenres.every((genreId) => {
         return movie.genre_ids.includes(parseInt(genreId));
       });
     });
-    setDataMovies([]); 
+    setDataMovies([]);
     setFilteredMovies(updatedFilteredMovies);
   }, [movies, selectedGenres]);
-  
-  
+
+  console.log("Movie images", movieImages);
 
   return (
     <>
-<button className="btn-filter" onClick={openList}>Filters</button>
+      <button className="btn-filter" onClick={openList}>
+        Filter
+      </button>
 
-<div className={openMenu ? "filter-container open" : "filter-container"}>
-  <form onSubmit={handleSubmit}>
-    <input
-      type="text"
-      value={movie}
-      onChange={(e) => setMovie(e.target.value)}
-      placeholder="Search for a movie..."
-    />
-    <button type="submit">Search</button>
-  </form>
-  <div>
-    <ul>
-      {dataMovies.map((movie) => (
-        <li key={movie}>{movie.original_title}</li>
-      ))}
-    </ul>
-  </div>
-  <div>
-    <button className="button-genre">Filter by Genre</button>
-    <div>
-      {genres.map((movieGenre) => (
-        <div key={movieGenre.id} className="checkbox-container">
+      <div className={openMenu ? "filter-container open" : "filter-container"}>
+        <form onSubmit={handleSubmit}>
           <input
-            type="checkbox"
-            value={movieGenre.id}
-            checked={selectedGenres.includes(movieGenre.id)}
-            onChange={() => handleGenreSelect(movieGenre.id)}
+            type="text"
+            value={movie}
+            onChange={(e) => setMovie(e.target.value)}
+            placeholder="Search for a movie..."
           />
-          <label>{movieGenre.name}</label>
+          <button type="submit">Search</button>
+        </form>
+        <div>
+          <ul>
+            {dataMovies.map((movie) => (
+              <li key={movie}>{movie.original_title}</li>
+            ))}
+          </ul>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
+        <div>
+          {/* <button className="button-genre">Filter by Genre</button> */}
+          <div>
+            {genres.map((movieGenre) => (
+              <div key={movieGenre.id} className="checkbox-container">
+                <input
+                  type="checkbox"
+                  value={movieGenre.id}
+                  checked={selectedGenres.includes(movieGenre.id)}
+                  onChange={() => handleGenreSelect(movieGenre.id)}
+                />
+                <label>{movieGenre.name}</label>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-   
+      <div id="carouselExampleFade" className="carousel slide carousel-fade">
+        <Carousel fade className="carousel-content">
+          {filteredMovies.slice(0, 6).map((movie) => (
+            <Carousel.Item key={movie.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt="Movie Poster"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              <Carousel.Caption>
+                <h3>{movie.title}</h3>
+                <p>{movie.overview}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
+
       <div className="movies-main-container">
         <div>
           <h1>Latest Releases</h1>
@@ -273,12 +314,10 @@ export default function PopularMovies() {
                   <button
                     onClick={() => handleCommentSubmit(movie.id)}
                     // disabled={!user}
-                    className={user ? 'logged-in' : 'logged-out'}
-                    
+                    className={user ? "logged-in" : "logged-out"}
                   >
                     Publicar
                   </button>
-
                   {comments.some((comment) => comment.movieId === movie.id) ? (
                     <div className="comment-padding">
                       <h6>Comments</h6>
