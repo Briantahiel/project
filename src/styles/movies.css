@@ -1,19 +1,31 @@
+* {
+  font-family: "Oswald", sans-serif;
+}
+.main-filter-container {
+  position: sticky;
+  top: 56px;
+  z-index: 1000;
+}
+
 .filter-container {
-  opacity: 0; 
+  height: 0; 
   overflow: hidden;
-  top: 82px;
-  left: 0;
   width: 200px;
-  color: #000000;
-  font-weight: 400;
-  background-color: rgba(255, 255, 255, 0.6);
+  color: whitesmoke;
+  letter-spacing: 1px;
+  font-weight: 100;
+  background-color: rgba(0, 0, 0, .3) ; 
   backdrop-filter: blur(5px);
-  transition: opacity 0.5s ease, visibility 0.5s ease; 
 }
 
 .filter-container.open {
-  opacity: 1; 
-  visibility: visible;
+  height: 100%;
+}
+::placeholder {
+  color: whitesmoke;
+  font-weight: 100;
+  font-size: 14px;
+  text-align: center;
 }
 
 .filter-container input[type="text"],
@@ -22,21 +34,31 @@
   width: 100%;
   border: none;
   margin-right: 10px;
+  color: whitesmoke;
+  font-weight: 200;
+  background-color: rgba(0, 0, 0, .3) ; 
+
 }
 .checkbox-container {
   padding-left: 10px;
 }
+.filter-main-container {
+  z-index: 999;
+}
 .filter-container input[type="checkbox"] {
   margin-right: 10px;
-  
 }
 .btn-filter {
   border: none;
   width: 200px;
-  background-color: rgba(221, 212, 212, 0.6);
-  color: rgb(5, 5, 5);
-  font-weight: 400;
-
+  background-color: rgba(0, 0, 0, .3) ; 
+  color: whitesmoke;
+  font-weight: 300;
+}
+.btn-filter img {
+  filter: saturate(0%) brightness(200%);
+  width: 20px;
+  height: 20px;
 }
 /* .button-genre {
   background-color: #007bff;
@@ -178,14 +200,16 @@
     cursor: pointer;
 }
 
-
 /*////////////////*/
 .carousel {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: -1;
+}
+
+.carousel-content img{
+  width: 100%;
 }
 .carousel-content .carousel-item img {
   max-width: 100%;

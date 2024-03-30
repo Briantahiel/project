@@ -29,11 +29,11 @@ export default function Navigation() {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Movie Chat
-          </a>
+      <nav className="navbar navbar-expand-lg">
+        <div className="container-fluid ">
+          <p className="brand">
+            FLICKTALK
+          </p>
           <button
             className="navbar-toggler"
             type="button"
@@ -45,8 +45,8 @@ export default function Navigation() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
+          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul className="navbar-nav ">
               <li className="nav-item">
                 <Link href="/movies" className="nav-link">
                   Movies

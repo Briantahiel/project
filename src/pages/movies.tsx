@@ -229,8 +229,28 @@ export default function PopularMovies() {
 
   return (
     <>
+
+
+      <div id="carouselExampleFade" className="carousel slide carousel-fade">
+        <Carousel fade className="carousel-content">
+          {filteredMovies.slice(0, 6).map((movie) => (
+            <Carousel.Item key={movie.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                alt="Movie Poster"
+              />
+              <Carousel.Caption>
+                <h3>{movie.title}</h3>
+                <p>{movie.overview}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
+
+      <div className="main-filter-container">
       <button className="btn-filter" onClick={openList}>
-        Filter
+        <img src="/images/lupa2.png" alt="magnifying glass icon"/>
       </button>
 
       <div className={openMenu ? "filter-container open" : "filter-container"}>
@@ -250,6 +270,7 @@ export default function PopularMovies() {
             ))}
           </ul>
         </div>
+      
         <div>
           {/* <button className="button-genre">Filter by Genre</button> */}
           <div>
@@ -267,23 +288,6 @@ export default function PopularMovies() {
           </div>
         </div>
       </div>
-
-      <div id="carouselExampleFade" className="carousel slide carousel-fade">
-        <Carousel fade className="carousel-content">
-          {filteredMovies.slice(0, 6).map((movie) => (
-            <Carousel.Item key={movie.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                alt="Movie Poster"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-              <Carousel.Caption>
-                <h3>{movie.title}</h3>
-                <p>{movie.overview}</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))}
-        </Carousel>
       </div>
 
       <div className="movies-main-container">
