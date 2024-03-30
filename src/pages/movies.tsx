@@ -239,10 +239,10 @@ export default function PopularMovies() {
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                 alt="Movie Poster"
               />
-              <Carousel.Caption>
+              {/* <Carousel.Caption>
                 <h3>{movie.title}</h3>
                 <p>{movie.overview}</p>
-              </Carousel.Caption>
+              </Carousel.Caption> */}
             </Carousel.Item>
           ))}
         </Carousel>
