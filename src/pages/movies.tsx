@@ -363,7 +363,7 @@ export default function PopularMovies() {
               </div>
             </div>
           ))}
-
+      </div>
           <div className="movies-btn-pages">
             <button onClick={handlePrevPage} disabled={currentPage === 1}>
               Anterior
@@ -371,7 +371,7 @@ export default function PopularMovies() {
             <button onClick={handleNextPage}>Siguiente</button>
           </div>
         </div>
-      </div>
+     
     </>
   );
 }

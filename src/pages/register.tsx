@@ -26,7 +26,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="container">
+      <div className="container-login-register">
         <h2 className="title">Register</h2>
         <label className="form-label">
           Email:
