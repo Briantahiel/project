@@ -1,37 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap');
-header{
-    position: sticky;
-    z-index: 999;
-    top: 0px;
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap");
+header {
+  position: fixed;
+  z-index: 999;
+  top: 0px;
+  left: 0;
+  right: 0;
 }
 .navbar {
-    background-color: rgba(0, 0, 0, .3) ; 
-    backdrop-filter: blur(5px); 
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
 }
 
 .navbar-brand {
-    color: rgb(255, 255, 0); 
-    font-family: "Oswald", sans-serif;
-    font-size: 24px;
-    font-weight: 1000;
-    margin: auto;
+  color: rgb(255, 255, 0);
+  font-family: "Oswald", sans-serif;
+  font-size: 24px;
+  font-weight: 1000;
 }
 .navbar-brand:hover {
-    color: rgb(255, 255, 0); 
+  color: rgb(255, 255, 0);
 }
 .nav-link {
-    font-family: "Oswald", sans-serif;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 200;
-    letter-spacing: 3px;
+  font-family: "Oswald", sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 200;
+  letter-spacing: 3px;
 }
 
 .nav-link:hover {
-    color: rgb(255, 255, 0) !important; 
+  color: rgb(255, 255, 0) !important;
 }
-
-
-

@@ -29,55 +29,55 @@ export default function Navigation() {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid ">
-          <p className="navbar-brand">
-            FLICKTALK
-          </p>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul className="navbar-nav ">
-              <li className="nav-item">
-                <Link href="/movies" className="nav-link text-white">
-                  Movies
-                </Link>
-              </li>
-              {!isLoggedin ? (
+      <header>
+        <nav className="navbar navbar-expand-lg">
+          <div className="container-fluid">
+            <span className="navbar-brand">FLICKTALK</span>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link href="/login" className="nav-link text-white">
-                    Login
+                  <Link href="/movies" className="nav-link text-white">
+                    Movies
                   </Link>
                 </li>
-              ) : (
-                <li className="nav-item">
-                  <button
-                    onClick={handleLogout}
-                    className="btn btn-link nav-link text-white"
-                  >
-                    Logout
-                  </button>
-                </li>
-              )}
+                {!isLoggedin ? (
+                  <li className="nav-item">
+                    <Link href="/login" className="nav-link text-white">
+                      Login
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="nav-item">
+                    <button
+                      onClick={handleLogout}
+                      className="btn btn-link nav-link text-white"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                )}
 
-              <li className="nav-item">
-                <Link href="/about" className="nav-link text-white">
-                  About us
-                </Link>
-              </li>
-            </ul>
+                <li className="nav-item">
+                  <Link href="/about" className="nav-link text-white">
+                    About us
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
     </header>
   );
 }
