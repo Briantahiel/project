@@ -229,8 +229,6 @@ export default function PopularMovies() {
 
   return (
     <>
-
-
       <div id="carouselExampleFade" className="carousel slide carousel-fade">
         <Carousel fade className="carousel-content">
           {filteredMovies.slice(0, 6).map((movie) => (
@@ -246,9 +244,14 @@ export default function PopularMovies() {
             </Carousel.Item>
           ))}
         </Carousel>
+        
       </div>
 
-      <div className="main-filter-container">
+      
+        
+      <div className="movies-main-container">
+        <div>
+        <div className="main-filter-container">
       <button className="btn-filter" onClick={openList}>
         <img src="/images/lupa2.png" alt="magnifying glass icon"/>
       </button>
@@ -290,76 +293,77 @@ export default function PopularMovies() {
       </div>
       </div>
 
-      <div className="movies-main-container">
-        <div>
-          <h1>Latest Releases</h1>
-          <div className="movies-container">
-            {filteredMovies.map((movie) => (
-              <div key={movie.id} className="movie-card">
-                <div className="movie-details">
-                  <h2>{movie.title}</h2>
-                  <p>{movie.overview}</p>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                </div>
-                <div className="comment-section">
-                  <input
-                    type="text"
-                    value={comment}
-                    onChange={(e) => {
-                      if (e.target.value.length <= 100) {
-                        setComment(e.target.value);
-                      }
-                    }}
-                    placeholder="Escribe un comentario"
-                  />
-                  <button
-                    onClick={() => handleCommentSubmit(movie.id)}
-                    // disabled={!user}
-                    className={user ? "logged-in" : "logged-out"}
-                  >
-                    Publicar
-                  </button>
-                  {comments.some((comment) => comment.movieId === movie.id) ? (
-                    <div className="comment-padding">
-                      <h6>Comments</h6>
-                      <ul>
-                        {comments
-                          .filter((comment) => comment.movieId === movie.id)
-                          .map((comment) => (
-                            <div className="comment-container">
-                              <p>{comment.userEmail} dice:</p>
-                              <li key={comment.id}>
-                                {comment.comment.length > 100
-                                  ? `${comment.comment.substring(0, 100)}...`
-                                  : comment.comment}
-                                {user && comment.userId === user.uid && (
-                                  <div className="movies-btn-container">
-                                    <button
-                                      onClick={() =>
-                                        handleDeleteComment(comment.id)
-                                      }
-                                    >
-                                      Delete
-                                    </button>
-                                  </div>
-                                )}
-                              </li>
-                            </div>
-                          ))}
-                      </ul>
+  <h1>Latest Releases</h1>
+  
+  <div className="movies-container">
+    {filteredMovies.map((movie) => (
+      <div key={movie.id} className="movie-card">
+        <div className="movie-details">
+          <h2>{movie.title}</h2>
+          <p>{movie.overview}</p>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+          />
+        </div>
+        <div className="comment-section">
+          <input
+            type="text"
+            value={comment}
+            onChange={(e) => {
+              if (e.target.value.length <= 100) {
+                setComment(e.target.value);
+              }
+            }}
+            placeholder="Escribe un comentario"
+          />
+          <button
+            onClick={() => handleCommentSubmit(movie.id)}
+            // disabled={!user}
+            className={user ? "logged-in" : "logged-out"}
+          >
+            Publicar
+          </button>
+          {comments.some((comment) => comment.movieId === movie.id) ? (
+            <div className="comment-padding">
+              <h6>Comments</h6>
+              <ul>
+                {comments
+                  .filter((comment) => comment.movieId === movie.id)
+                  .map((comment) => (
+                    <div className="comment-container">
+                      <p>{comment.userEmail} dice:</p>
+                      <li key={comment.id}>
+                        {comment.comment.length > 100
+                          ? `${comment.comment.substring(0, 100)}...`
+                          : comment.comment}
+                        {user && comment.userId === user.uid && (
+                          <div className="movies-btn-container">
+                            <button
+                              onClick={() =>
+                                handleDeleteComment(comment.id)
+                              }
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        )}
+                      </li>
                     </div>
-                  ) : (
-                    <div className="comment-padding">
-                      <h6>No comments</h6>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+                  ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="comment-padding">
+              <h6>No comments</h6>
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+
           <div className="movies-btn-pages">
             <button onClick={handlePrevPage} disabled={currentPage === 1}>
               Anterior

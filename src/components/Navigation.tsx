@@ -31,7 +31,7 @@ export default function Navigation() {
     <header>
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid ">
-          <p className="brand">
+          <p className="navbar-brand">
             FLICKTALK
           </p>
           <button
@@ -48,13 +48,13 @@ export default function Navigation() {
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul className="navbar-nav ">
               <li className="nav-item">
-                <Link href="/movies" className="nav-link">
+                <Link href="/movies" className="nav-link text-white">
                   Movies
                 </Link>
               </li>
               {!isLoggedin ? (
                 <li className="nav-item">
-                  <Link href="/login" className="nav-link">
+                  <Link href="/login" className="nav-link text-white">
                     Login
                   </Link>
                 </li>
@@ -62,7 +62,7 @@ export default function Navigation() {
                 <li className="nav-item">
                   <button
                     onClick={handleLogout}
-                    className="btn btn-link nav-link"
+                    className="btn btn-link nav-link text-white"
                   >
                     Logout
                   </button>
@@ -70,7 +70,7 @@ export default function Navigation() {
               )}
 
               <li className="nav-item">
-                <Link href="/about" className="nav-link">
+                <Link href="/about" className="nav-link text-white">
                   About us
                 </Link>
               </li>
