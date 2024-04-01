@@ -246,7 +246,7 @@ export default function PopularMovies() {
               />
               <Carousel.Caption  className="carousel-caption">
                 <h1>{movie.title}</h1>
-                <p>{movie.overview}</p>
+                <p>{movie.overview.length > 150 ? `${movie.overview.slice(0, 200)}...` : movie.overview}</p>
               </Carousel.Caption>
             </Carousel.Item>
           ))}
