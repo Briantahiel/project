@@ -29,6 +29,7 @@ export default function PopularMovies() {
   const [movie, setMovie] = useState<string>("");
   const [fileteredMovies, setFilteredMovies] = useState<any[]>([]);
   const [movieImages, setMovieImages] = useState<any[]>([]);
+  const [expandedMovies, setExpandedMovies] = useState<{ [id: string]: boolean }>({});
 
   const router = useRouter();
   const movieId = 100;
@@ -53,7 +54,6 @@ export default function PopularMovies() {
     fetchMovieImages();
   }, [movieId]);
 
-  console.log("Movie Images", movieImages);
   useEffect(() => {
     const fetchData = async (page: number) => {
       try {
@@ -225,13 +225,18 @@ export default function PopularMovies() {
     setFilteredMovies(updatedFilteredMovies);
   }, [movies, selectedGenres]);
 
-  console.log("Movie images", movieImages);
+  const toggleMovieInfo = (movieId: string) => {
+    setExpandedMovies(prevState => ({
+      ...prevState,
+      [movieId]: !prevState[movieId] 
+    }));
+  };
 
   return (
     <>
       <div id="carouselExampleFade" className="carousel slide carousel-fade">
         <Carousel fade className="carousel-content">
-          {filteredMovies.slice(0, 6).map((movie) => (
+          {movies.slice(0, 6).map((movie) => (
             <Carousel.Item key={movie.id}>
               <img
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -249,9 +254,9 @@ export default function PopularMovies() {
       <div className="movies-main-container">
         <div className="main-filter-container">
           <div>
-            <button className="btn-filter" onClick={openList}>
+            <a className="btn-filter" onClick={openList}>
               <img src="/images/lupa2.png" alt="magnifying glass icon" />
-            </button>
+            </a>
 
             <div
               className={
@@ -301,8 +306,15 @@ export default function PopularMovies() {
           {filteredMovies.map((movie) => (
             <div key={movie.id} className="movie-card">
               <div className="movie-details">
-                <h2>{movie.title}</h2>
-                <p>{movie.overview}</p>
+                <h4>{movie.title}</h4>
+                <p>
+                {expandedMovies[movie.id] ? movie.overview : `${movie.overview.substring(0, 100)}...`}
+                {movie.overview.length > 100 && (
+                  <a onClick={() => toggleMovieInfo(movie.id)}>
+                    {expandedMovies[movie.id] ? ' Ver menos' : ' Ver más'}
+                  </a>
+                )}
+              </p>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}

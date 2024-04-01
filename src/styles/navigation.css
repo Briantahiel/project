@@ -33,3 +33,14 @@ header {
 .nav-link:hover {
   color: rgb(255, 255, 0) !important;
 }
+/*/////////////*/
+@media (max-width: 460px){
+.nav-link {
+    font-size: .8rem;
+  }
+}
+@media (max-width: 460px){
+    .nav-link {
+        font-size: .7rem;
+      }
+    }

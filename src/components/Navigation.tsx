@@ -30,7 +30,7 @@ export default function Navigation() {
   return (
     <header>
       <header>
-        <nav className="navbar navbar-expand-lg">
+        <nav className="navbar navbar-expand">
           <div className="container-fluid">
             <span className="navbar-brand">FLICKTALK</span>
             <button
