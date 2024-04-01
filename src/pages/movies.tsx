@@ -13,6 +13,7 @@ import {
 import { db } from "../firebaseConfig";
 import { auth } from "../firebaseConfig";
 import { Carousel } from "react-bootstrap";
+import Link from "next/link";
 
 const API_KEY = "d0a97fc052097018bb41a342cb55b9b8";
 
@@ -242,10 +243,10 @@ export default function PopularMovies() {
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                 alt="Movie Poster"
               />
-              {/* <Carousel.Caption>
+              <Carousel.Caption>
                 <h3>{movie.title}</h3>
                 <p>{movie.overview}</p>
-              </Carousel.Caption> */}
+              </Carousel.Caption>
             </Carousel.Item>
           ))}
         </Carousel>
@@ -319,6 +320,9 @@ export default function PopularMovies() {
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                 />
+                  <Link href={`/${movie.id}`}>
+              <p>Ver detalles</p>
+            </Link>
               </div>
               <div className="comment-section">
                 <input

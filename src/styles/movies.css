@@ -243,6 +243,28 @@ input[type="checkbox"]:checked::before {
   object-fit: cover;
 }
 
+/*///MOVIE DETAILS////*/
+.details-main-container {
+  max-width: 1200px;
+  margin: auto;
+  align-items: center;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.detail-img-container{
+  max-width: 540px;
+  height: auto;
+}
+.detail-img-container img {
+  width: 100%;
+}
+.detail-info-container {
+  max-width: 540px;
+}
+
 /*/////ABOUT US///////*/
 
 .main-about-container {
@@ -251,3 +273,7 @@ input[type="checkbox"]:checked::before {
 }
 
 
+footer {
+  position: absolute;
+  bottom: 0;
+}
