@@ -236,15 +236,16 @@ export default function PopularMovies() {
   return (
     <>
       <div id="carouselExampleFade" className="carousel slide carousel-fade">
-        <Carousel fade className="carousel-content">
+        <div className="overlay"></div>
+        <Carousel fade controls={false} className="carousel-content">
           {movies.slice(0, 6).map((movie) => (
             <Carousel.Item key={movie.id}>
               <img
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                 alt="Movie Poster"
               />
-              <Carousel.Caption>
-                <h3>{movie.title}</h3>
+              <Carousel.Caption  className="carousel-caption">
+                <h1>{movie.title}</h1>
                 <p>{movie.overview}</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -321,7 +322,7 @@ export default function PopularMovies() {
                   alt={movie.title}
                 />
                   <Link href={`/${movie.id}`}>
-              <p>Ver detalles</p>
+              <p style={{textAlign: "right"}}>See more</p>
             </Link>
               </div>
               <div className="comment-section">
@@ -333,14 +334,14 @@ export default function PopularMovies() {
                       setComment(e.target.value);
                     }
                   }}
-                  placeholder="Escribe un comentario"
+                  placeholder="write a comment"
                 />
                 <button
                   onClick={() => handleCommentSubmit(movie.id)}
                   // disabled={!user}
                   className={user ? "logged-in" : "logged-out"}
                 >
-                  Publicar
+                  Publish
                 </button>
                 {comments.some((comment) => comment.movieId === movie.id) ? (
                   <div className="comment-padding">
@@ -350,7 +351,7 @@ export default function PopularMovies() {
                         .filter((comment) => comment.movieId === movie.id)
                         .map((comment) => (
                           <div className="comment-container">
-                            <p>{comment.userEmail} dice:</p>
+                            <p>{comment.userEmail} says:</p>
                             <li key={comment.id}>
                               {comment.comment.length > 100
                                 ? `${comment.comment.substring(0, 100)}...`
@@ -382,9 +383,9 @@ export default function PopularMovies() {
       </div>
           <div className="movies-btn-pages">
             <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Anterior
+              Back
             </button>
-            <button onClick={handleNextPage}>Siguiente</button>
+            <button onClick={handleNextPage}>Next</button>
           </div>
         </div>
      

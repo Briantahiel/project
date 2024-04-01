@@ -126,7 +126,7 @@ input[type="checkbox"]:checked::before {
   width: 440px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -233,6 +233,13 @@ input[type="checkbox"]:checked::before {
 }
 
 /*////////////////*/
+/* .overlay {
+  background-color: rgb(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+} */
 
 .carousel-content img {
   width: 100%;
@@ -243,12 +250,31 @@ input[type="checkbox"]:checked::before {
   object-fit: cover;
 }
 
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  align-content: end;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  padding: 120px;
+  color: white;
+}
+.carousel-caption h1 {
+  font-weight: 300;
+}
+.carousel-caption p {
+  font-weight: 100;
+}
+
+
 /*///MOVIE DETAILS////*/
 .details-main-container {
   max-width: 1200px;
-  margin: auto;
+  margin: 70px auto 10px;
+  height: 500px;
   align-items: center;
-  margin-top: 100px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -274,6 +300,12 @@ input[type="checkbox"]:checked::before {
 
 
 footer {
-  position: absolute;
+  position: relative;
+  left: 0;
   bottom: 0;
+  width: 100%;
+  background-color: #6173a5;
+  color: white;
+  text-align: center;
+  padding: 10px;
 }
