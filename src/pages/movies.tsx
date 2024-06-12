@@ -95,6 +95,12 @@ export default function PopularMovies() {
     fetchMovieGenres();
   }, []);
 
+/* The above code is using the `useEffect` hook in a TypeScript React component to listen for changes
+in the authentication state. It calls the `onAuthStateChanged` method provided by the `auth` object
+to get the current user. If a user is authenticated, it sets the user state using `setUser(user)`,
+otherwise it sets the user state to `null`. The `unsubscribe` function returned from
+`onAuthStateChanged` is then returned from the `useEffect` hook to clean up the subscription when
+the component unmounts or when the dependencies change. */
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {

@@ -16,6 +16,7 @@ export default function Register() {
         auth,
         email,
         password
+        
       );
       console.log("Usuario registrado exitosamente:", userCredential.user);
       router.push('/movies');
